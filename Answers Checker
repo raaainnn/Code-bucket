@@ -1,0 +1,56 @@
+package tamayo_rainangelg;
+
+import java.io.*;
+import java.util.*;
+
+public class Tamayo_RainAngelG {
+
+    public static void main(String[] args) {
+        try {
+            // file: make at write
+            File myFile = new File("A:\\keyToCorrection.txt");
+            if (myFile.createNewFile()) {
+                System.out.println("File created: " + myFile.getName());
+                FileWriter myPen = new FileWriter("A:\\keyToCorrection.txt");
+                myPen.write("A\n" + "D\n" + "A\n" + "B\n" + "B\n" + "A\n" + "C\n" + "D\n" + "A\n" + "C\n");
+                myPen.close();
+            } else {
+                System.out.println("File cannot be created, it already exists...");
+            }
+
+            //user answer
+            String[] inputAns = {};
+            do {
+                Scanner x = new Scanner(System.in);
+                System.out.print("Enter your 10 letters answer [Please use space to each letter]: ");
+                String input = x.nextLine();
+                inputAns = input.split(" ");
+                    if (inputAns.length != 10) {
+                        System.out.println("[ Enter exactly 10 leters ]");
+                    }
+            } while (inputAns.length != 10);
+
+            //file: reader
+            String[] correctAns = new String[10];
+            Scanner reader = new Scanner(myFile);
+            int i = 0;
+            while (reader.hasNextLine()) {
+                String answers = reader.nextLine();
+                correctAns[i++] = answers;
+            }
+            reader.close();
+
+            //checking at counting
+            int score = 0;
+            for (int c = 0; c < 10; c++) {
+                if (inputAns[c].equalsIgnoreCase(correctAns[c])) {
+                    score++;
+                }
+            }
+
+            System.out.println("Total number of your correct answer/s: " + score);
+        } catch (IOException e) {
+            System.out.println("An Error Occurred" + e);
+        }
+    }
+}
